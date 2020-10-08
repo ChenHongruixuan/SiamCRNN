@@ -45,7 +45,7 @@ class ChangeTrainer(object):
         self.opt = None
         self.train_op = None
         self.global_step = tf.Variable(0, trainable=False)
-        self.siamcrnn_model = ReCNN()
+        self.siamcrnn_model = SiamCRNN()
 
 
     def load_data(self):

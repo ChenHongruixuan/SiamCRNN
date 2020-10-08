@@ -12,6 +12,8 @@ class SiamCRNN(object):
                                             data_format=data_format,
                                             is_training=is_training, is_reuse=True)
 
+        fea_1 = tf.squeeze(net_X, axis=1)
+        fea_2 = tf.squeeze(net_Y, axis=1)
        
         logits, pred = self._change_judge_layer(feature_1=fea_1, feature_2=fea_2, name='Cha_Jud_',
                                                 is_training=is_training)
