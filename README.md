@@ -14,7 +14,7 @@ numpy==1.14.0
 ```
 
 ## Dataset
-The datasets WH and HY used in our paper has been open-sourced! You can download them [here](http://sigma.whu.edu.cn/resource.php).   
+The datasets WH and HY used in our paper have been open-sourced! You can download them [here](http://sigma.whu.edu.cn/resource.php).   
 
 ## Citation
 Please considering to cite our paper if you use this code in your research.
