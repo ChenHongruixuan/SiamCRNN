@@ -8,7 +8,7 @@ This is an official implementation of **SiamCRNN** framework in our IEEE TGRS 20
 
 ## Note
 **2024.01.18**
-- Wanna go beyond the patch-wise detection pipeline and apply SiamCRNN to large-scale change detection datasets? We have updated the [fully convolutional version of SiamCRNN](). Please feel free to test on the benchmark dataset.
+- Wanna go beyond the patch-wise detection pipeline and apply SiamCRNN to large-scale change detection datasets? We have updated the [fully convolutional version of SiamCRNN](https://github.com/ChenHongruixuan/SiamCRNN/tree/master/FCN_version). Please feel free to test on the benchmark dataset.
 
 **2023.04.25**
 - The datasets Wuhan and Hanyang used in our paper have been open-sourced! You can download them [here](http://sigma.whu.edu.cn/resource.php).   
