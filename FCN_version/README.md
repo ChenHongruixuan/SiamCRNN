@@ -33,8 +33,16 @@ python test_siamcrnn.py
 ```
 
 ### Detection results
-
-
+|               |         |                      |         |                           |         |                      |                
+|:-------------:|:---------------:|:--------------------:|:---------------:|:--------------------:|:--------------------:|:--------------------:|
+|     Method    |       Rec        |          Pre          |       OA        |          F1          |          IoU          |          KC          |
+|     FC-EF      |     0.4612		 | 0.4967      |    0.9480		|    0.4783	   | 0.3143	  |  0.4510       |               
+|     FC-Siam-Conc      |   0.5362 	 |  	0.4760	   |     0.9455	|   0.5043	   | 0.3372		  |   0.4757	         |               
+|     FC-Siam-Diff      |    0.5385 | 	0.4391      |    	0.9406	|    	0.4838		   |  0.3191	  |   0.4526 |               
+|     [DSIFN](https://github.com/GeoZcx/A-deeply-supervised-image-fusion-network-for-change-detection-in-remote-sensing-images)     |    0.4538  | 0.6732    | 0.9604	|      0.5421	   |  0.3718	  | 0.5222   |               
+|     [ChangeFormer](https://github.com/wgcban/ChangeFormer)     |    0.5351		 | 0.5566     |     0.9540		|     0.5457	   |  0.3752	  |  0.5215	      |               
+|     **SiamCRNN (ResNet18)**      |     **0.5160**	  |  **0.5758**      |      **0.9553**	|      **0.5442**	   |  **0.3739**	  |   **0.5208**         |
+					
 ## Citation
 If this code or dataset contributes to your research, please consider citing our paper. We appreciate your support!🙂
 ```
