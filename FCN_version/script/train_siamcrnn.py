@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/songjian/project/HSIFM')
+sys.path.append('/Users/ivanvirovski/SiamCRNN/SiamCRNN/FCN_version')
 import argparse
 import os
 import time
@@ -9,12 +9,14 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
+import util_func.lovasz_loss as L
+
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from dataset.make_data_loader import OSCDDatset3Bands, make_data_loader, OSCDDatset13Bands
 from util_func.metrics import Evaluator
 from deep_networks.SiamCRNN import SiamCRNN
-import util_func.lovazs_loss as L
+
 
 
 class Trainer(object):
@@ -135,10 +137,10 @@ def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
     parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
     parser.add_argument('--dataset_path', type=str,
-                        default='/home/songjian/project/HSIFM/dataset/OSCD/original_data')
+                        default='/Users/ivanvirovski/SiamCRNN/SiamCRNN/FCN_version/dataset/OSCD/original_data')
     parser.add_argument('--type', type=str, default='train')
     parser.add_argument('--train_data_list_path', type=str,
-                        default='/home/songjian/project/HSIFM/dataset/OSCD/original_data/train.txt')
+                        default='/Users/ivanvirovski/SiamCRNN/SiamCRNN/FCN_version/dataset/OSCD/original_data/train.txt')
     parser.add_argument('--shuffle', type=bool, default=True)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--data_name_list', type=list)

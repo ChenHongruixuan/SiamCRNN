@@ -17,10 +17,6 @@ except ImportError:  # py3k
 
 
 def lovasz_grad(gt_sorted):
-    """
-    Computes gradient of the Lovasz extension w.r.t sorted errors
-    See Alg. 1 in paper
-    """
     p = len(gt_sorted)
     gts = gt_sorted.sum()
     intersection = gts - gt_sorted.float().cumsum(0)
@@ -32,10 +28,6 @@ def lovasz_grad(gt_sorted):
 
 
 def iou_binary(preds, labels, EMPTY=1., ignore=None, per_image=True):
-    """
-    IoU for foreground class
-    binary: 1 foreground, 0 background
-    """
     if not per_image:
         preds, labels = (preds,), (labels,)
     ious = []
@@ -52,9 +44,6 @@ def iou_binary(preds, labels, EMPTY=1., ignore=None, per_image=True):
 
 
 def iou(preds, labels, C, EMPTY=1., ignore=None, per_image=False):
-    """
-    Array of IoU for each (non ignored) class
-    """
     if not per_image:
         preds, labels = (preds,), (labels,)
     ious = []
@@ -77,13 +66,6 @@ def iou(preds, labels, C, EMPTY=1., ignore=None, per_image=False):
 
 
 def lovasz_hinge(logits, labels, per_image=True, ignore=None):
-    """
-    Binary Lovasz hinge loss
-      logits: [B, H, W] Variable, logits at each pixel (between -\infty and +\infty)
-      labels: [B, H, W] Tensor, binary ground truth masks (0 or 1)
-      per_image: compute the loss per image instead of per batch
-      ignore: void class id
-    """
     if per_image:
         loss = mean(lovasz_hinge_flat(*flatten_binary_scores(log.unsqueeze(0), lab.unsqueeze(0), ignore))
                     for log, lab in zip(logits, labels))
@@ -93,12 +75,6 @@ def lovasz_hinge(logits, labels, per_image=True, ignore=None):
 
 
 def lovasz_hinge_flat(logits, labels):
-    """
-    Binary Lovasz hinge loss
-      logits: [P] Variable, logits at each prediction (between -\infty and +\infty)
-      labels: [P] Tensor, binary ground truth labels (0 or 1)
-      ignore: label to ignore
-    """
     if len(labels) == 0:
         # only void pixels, the gradients should be 0
         return logits.sum() * 0.
@@ -138,12 +114,6 @@ class StableBCELoss(torch.nn.modules.Module):
 
 
 def binary_xloss(logits, labels, ignore=None):
-    """
-    Binary Cross entropy loss
-      logits: [B, H, W] Variable, logits at each pixel (between -\infty and +\infty)
-      labels: [B, H, W] Tensor, binary ground truth masks (0 or 1)
-      ignore: void class id
-    """
     logits, labels = flatten_binary_scores(logits, labels, ignore)
     loss = StableBCELoss()(logits, Variable(labels.float()))
     return loss
@@ -153,15 +123,6 @@ def binary_xloss(logits, labels, ignore=None):
 
 
 def lovasz_softmax(probas, labels, classes='present', per_image=False, ignore=255):
-    """
-    Multi-class Lovasz-Softmax loss
-      probas: [B, C, H, W] Variable, class probabilities at each prediction (between 0 and 1).
-              Interpreted as binary (sigmoid) output with outputs of size [B, H, W].
-      labels: [B, H, W] Tensor, ground truth labels (between 0 and C - 1)
-      classes: 'all' for all, 'present' for classes present in labels, or a list of classes to average.
-      per_image: compute the loss per image instead of per batch
-      ignore: void class labels
-    """
     if per_image:
         loss = mean(lovasz_softmax_flat(*flatten_probas(prob.unsqueeze(0), lab.unsqueeze(0), ignore), classes=classes)
                     for prob, lab in zip(probas, labels))
@@ -171,12 +132,6 @@ def lovasz_softmax(probas, labels, classes='present', per_image=False, ignore=25
 
 
 def lovasz_softmax_flat(probas, labels, classes='present'):
-    """
-    Multi-class Lovasz-Softmax loss
-      probas: [P, C] Variable, class probabilities at each prediction (between 0 and 1)
-      labels: [P] Tensor, ground truth labels (between 0 and C - 1)
-      classes: 'all' for all, 'present' for classes present in labels, or a list of classes to average.
-    """
     if probas.numel() == 0:
         # only void pixels, the gradients should be 0
         return 0.  # current probas.shape=torch.size([0,4]) and (probas*0.).shape is also torch.size([0,4]),a tensor loss cannot be backforward
@@ -187,7 +142,7 @@ def lovasz_softmax_flat(probas, labels, classes='present'):
     class_to_sum = list(range(C)) if classes in ['all', 'present'] else classes
     for c in class_to_sum:
         fg = (labels == c).float()  # foreground for class c
-        if (classes is 'present' and fg.sum() == 0):
+        if (classes == 'present' and fg.sum() == 0):
             continue
         if C == 1:
             if len(classes) > 1:
@@ -204,9 +159,6 @@ def lovasz_softmax_flat(probas, labels, classes='present'):
 
 
 def flatten_probas(probas, labels, ignore=None):
-    """
-    Flattens predictions in the batch
-    """
     if probas.dim() == 3:
         # assumes output of a sigmoid layer
         B, H, W = probas.size()
@@ -223,9 +175,6 @@ def flatten_probas(probas, labels, ignore=None):
 
 
 def xloss(logits, labels, ignore=None):
-    """
-    Cross entropy loss
-    """
     return F.cross_entropy(logits, Variable(labels), ignore_index=255)
 
 
@@ -235,9 +184,6 @@ def isnan(x):
 
 
 def mean(l, ignore_nan=False, empty=0):
-    """
-    nanmean compatible with generators.
-    """
     l = iter(l)
     if ignore_nan:
         l = ifilterfalse(isnan, l)
