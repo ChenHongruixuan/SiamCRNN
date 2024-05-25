@@ -1,7 +1,6 @@
 import tensorflow as tf
 from net_util import conv_2d, max_pool_2d, avg_pool_2d, fully_connected
 
-
 class SiamCRNN(object):
 
     def get_model(self, Input_X, Input_Y, data_format='NHWC', is_training=True):
@@ -24,7 +23,7 @@ class SiamCRNN(object):
             if is_reuse:
                 scope.reuse_variables()
             # (B, H, W, C) --> (B, H, W, 16)
-            layer_1 = conv_2d(inputs=inputs, kernel_size=[3, 3], output_channel=16, stride=[1, 1], name='layer_1_conv',
+            layer_1 = conv_2d(inputs=inputs, kernel_size=[3, 3], output_channel=3, stride=[1, 1], name='layer_1_conv',
                               padding='SAME', data_format=data_format, is_training=is_training, is_bn=False,
                               activation=tf.nn.relu)
             layer_2 = conv_2d(inputs=layer_1, kernel_size=[3, 3], output_channel=16, stride=[1, 1], name='layer_2_conv',

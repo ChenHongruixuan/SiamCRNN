@@ -20,7 +20,7 @@ def img_loader(path):
 
 def sentinel_loader(path):
     band_0_img = np.array(imageio.imread(os.path.join(path, 'B01.tif')), np.float32)
-    ms_data = np.zeros((band_0_img.shape[0], band_0_img.shape[1], 13))
+    ms_data = np.zeros((band_0_img.shape[0], band_0_img.shape[1], 3))
     for i, band in enumerate(band_idx):
         ms_data[:, :, i] = np.array(imageio.imread(os.path.join(path, band)), np.float32)
 

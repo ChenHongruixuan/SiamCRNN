@@ -207,7 +207,7 @@ class Trainer(object):
         print(args.model_type + ' is running')
         self.evaluator = Evaluator(num_class=2)
 
-        self.deep_model = SiamCRNN(in_dim_1=13, in_dim_2=13)
+        self.deep_model = SiamCRNN(in_dim_1=3, in_dim_2=3)
         self.deep_model = self.deep_model.cpu()  # Move model to CPU
 
         self.model_save_path = os.path.join(args.model_param_path, args.dataset,
@@ -271,7 +271,7 @@ class Trainer(object):
     def validation(self):
         print('---------starting evaluation-----------')
         self.evaluator.reset()
-        dataset_path = '/home/songjian/project/HSIFM/dataset/OSCD/original_data'
+        dataset_path = '/home/songjian/project/HSIFM/dataset/OSCD/original_data//Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/Onera Satellite Change Detection dataset - Images/rennes/pair'
         with open('/home/songjian/project/HSIFM/dataset/OSCD/original_data/test.txt', "r") as f:
             # data_name_list = f.read()
             data_name_list = [data_name.strip() for data_name in f]
@@ -313,9 +313,9 @@ class Trainer(object):
 
 def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
-    parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
+    parser.add_argument('--dataset', type=str, default='OSCD_3Bands')
     parser.add_argument('--dataset_path', type=str,
-                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data')
+                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/Onera Satellite Change Detection dataset - Images')
     parser.add_argument('--type', type=str, default='train')
     parser.add_argument('--train_data_list_path', type=str,
                         default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/train.txt')
