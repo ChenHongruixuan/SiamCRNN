@@ -3,7 +3,7 @@ import os
 import pickle
 import time
 
-import gdal
+from osgeo import gdal
 import numpy as np
 import tensorflow as tf
 
