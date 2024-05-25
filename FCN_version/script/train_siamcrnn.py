@@ -315,7 +315,7 @@ def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
     parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
     parser.add_argument('--dataset_path', type=str,
-                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version')
+                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data')
     parser.add_argument('--type', type=str, default='train')
     parser.add_argument('--train_data_list_path', type=str,
                         default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/train.txt')
