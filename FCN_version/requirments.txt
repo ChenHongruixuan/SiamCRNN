@@ -1,0 +1,6 @@
+python
+pytorch
+torchvision
+imageio
+numpy
+tqdm
