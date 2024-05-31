@@ -150,7 +150,7 @@ def make_data_loader(args, **kwargs):  # **kwargs could be omitted
     if 'OSCD_3Bands' in args.dataset:
         dataset = OSCDDatset3Bands(args.dataset_path, args.data_name_list, args.crop_size, args.max_iters, args.type)
         # train_sampler = DistributedSampler(dataset, shuffle=True)
-        data_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=args.shuffle, **kwargs, num_workers=16,
+        data_loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=args.shuffle, **kwargs, num_workers=2,
                                  drop_last=False)
         return data_loader
 
