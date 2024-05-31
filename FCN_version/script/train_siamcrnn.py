@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version')
+sys.path.append('../')
 import argparse
 import os
 import time
@@ -92,8 +92,8 @@ class Trainer(object):
     def validation(self):
         print('---------starting evaluation-----------')
         self.evaluator.reset()
-        dataset_path = '/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_versiondataset/OSCD/original_data/training'
-        with open('/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/train.txt', "r") as f:
+        dataset_path = '../dataset/OSCD/original_data/training'
+        with open('../dataset/OSCD/original_data/train.txt', "r") as f:
             # data_name_list = f.read()
             data_name_list = [data_name.strip() for data_name in f]
         data_name_list = data_name_list
@@ -138,10 +138,10 @@ def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
     parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
     parser.add_argument('--dataset_path', type=str,
-                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_versiondataset/OSCD/original_data/training')
+                        default='../dataset/OSCD/original_data/training')
     parser.add_argument('--type', type=str, default='train')
     parser.add_argument('--train_data_list_path', type=str,
-                        default='/Users/ivanvirovski/Documents/uni/SiamCRNN-1/FCN_version/dataset/OSCD/original_data/train.txt')
+                        default='../dataset/OSCD/original_data/train.txt')
     parser.add_argument('--shuffle', type=bool, default=True)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--data_name_list', type=list)
