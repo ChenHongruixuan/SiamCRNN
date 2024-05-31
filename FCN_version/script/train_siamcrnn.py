@@ -27,7 +27,7 @@ class Trainer(object):
         print(args.model_type + ' is running')
         self.evaluator = Evaluator(num_class=2)
 
-        self.deep_model = SiamCRNN(in_dim_1=13, in_dim_2=13)
+        self.deep_model = SiamCRNN(in_dim_1=3, in_dim_2=3)
         self.deep_model = self.deep_model.cuda()
 
         self.model_save_path = os.path.join(args.model_param_path, args.dataset,
@@ -97,7 +97,7 @@ class Trainer(object):
             # data_name_list = f.read()
             data_name_list = [data_name.strip() for data_name in f]
         data_name_list = data_name_list
-        dataset = OSCDDatset13Bands(dataset_path=dataset_path, data_list=data_name_list, crop_size=512,
+        dataset = OSCDDatset3Bands(dataset_path=dataset_path, data_list=data_name_list, crop_size=512,
                                    max_iters=None, type='test')
         val_data_loader = DataLoader(dataset, batch_size=1, num_workers=8, drop_last=False)
         torch.cuda.empty_cache()
@@ -136,7 +136,7 @@ class Trainer(object):
 
 def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
-    parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
+    parser.add_argument('--dataset', type=str, default='OSCD3Bands')
     parser.add_argument('--dataset_path', type=str,
                         default='/content/SiamCRNN/FCN_versiondataset/OSCD/original_data/training')
     parser.add_argument('--type', type=str, default='train')
