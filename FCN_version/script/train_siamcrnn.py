@@ -1,10 +1,7 @@
 import sys
-import os
-
-# Add the FCN_version directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+sys.path.append('/content/SiamCRNN/FCN_version')
 import argparse
+import os
 import time
 
 import imageio
@@ -19,6 +16,8 @@ from tqdm import tqdm
 from dataset.make_data_loader import OSCDDatset3Bands, make_data_loader, OSCDDatset13Bands
 from util_func.metrics import Evaluator
 from deep_networks.SiamCRNN import SiamCRNN
+
+
 
 class Trainer(object):
     def __init__(self, args):
@@ -75,7 +74,7 @@ class Trainer(object):
 
             if (itera + 1) % 10 == 0:
                 print(
-                    f'iter is {itera + 1}, change detection loss is {bcd_loss}'
+                    f'iter is {itera + 1},  change detection loss is {bcd_loss}'
                 )
                 if (itera + 1) % 200 == 0:
                     self.deep_model.eval()
@@ -93,8 +92,9 @@ class Trainer(object):
     def validation(self):
         print('---------starting evaluation-----------')
         self.evaluator.reset()
-        dataset_path = '../dataset/OSCD/original_data/training'
-        with open('../dataset/OSCD/original_data/train.txt', "r") as f:
+        dataset_path = '/content/SiamCRNN/FCN_versiondataset/OSCD/original_data/training'
+        with open('/content/SiamCRNN/FCN_version/dataset/OSCD/original_data/train.txt', "r") as f:
+            # data_name_list = f.read()
             data_name_list = [data_name.strip() for data_name in f]
         data_name_list = data_name_list
         dataset = OSCDDatset13Bands(dataset_path=dataset_path, data_list=data_name_list, crop_size=512,
@@ -129,7 +129,7 @@ class Trainer(object):
         pre = self.evaluator.Pixel_Precision_Rate()
         iou = self.evaluator.Intersection_over_Union()
         kc = self.evaluator.Kappa_coefficient()
-        print(f'Recall rate is {rec}, Precision rate is {pre}, OA is {oa}, '
+        print(f'Racall rate is {rec}, Precision rate is {pre}, OA is {oa}, '
               f'F1 score is {f1_score}, IoU is {iou}, Kappa coefficient is {kc}')
         return rec, pre, oa, f1_score, iou, kc
 
@@ -138,10 +138,10 @@ def main():
     parser = argparse.ArgumentParser(description="Training on OEM_OSM dataset")
     parser.add_argument('--dataset', type=str, default='OSCD_13Bands')
     parser.add_argument('--dataset_path', type=str,
-                        default='../dataset/OSCD/original_data/training')
+                        default='/content/SiamCRNN/FCN_versiondataset/OSCD/original_data/training')
     parser.add_argument('--type', type=str, default='train')
     parser.add_argument('--train_data_list_path', type=str,
-                        default='../dataset/OSCD/original_data/train.txt')
+                        default='/content/SiamCRNN/FCN_version/dataset/OSCD/original_data/train.txt')
     parser.add_argument('--shuffle', type=bool, default=True)
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--data_name_list', type=list)
@@ -150,7 +150,7 @@ def main():
     parser.add_argument('--crop_size', type=int, default=256)
     parser.add_argument('--max_iters', type=int, default=100000)
     parser.add_argument('--model_type', type=str, default='SiamCRNN')
-    parser.add_argument('--model_param_path', type=str, default='../saved_models')
+    parser.add_argument('--model_param_path', type=str, default='/content/saved_models')
 
     parser.add_argument('--resume', type=str)
     parser.add_argument('--learning_rate', type=float, default=1e-4)
@@ -159,6 +159,7 @@ def main():
 
     args = parser.parse_args()
     with open(args.train_data_list_path, "r") as f:
+        # data_name_list = f.read()
         data_name_list = [data_name.strip() for data_name in f]
     args.data_name_list = data_name_list
 
