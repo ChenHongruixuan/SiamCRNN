@@ -92,7 +92,7 @@ class Trainer(object):
     def validation(self):
         print('---------starting evaluation-----------')
         self.evaluator.reset()
-        dataset_path = '/content/SiamCRNN/FCN_versiondataset/OSCD/original_data/training'
+        dataset_path = '/content/SiamCRNN/FCN_version/dataset/OSCD/original_data/training'
         with open('/content/SiamCRNN/FCN_version/dataset/OSCD/original_data/train.txt', "r") as f:
             # data_name_list = f.read()
             data_name_list = [data_name.strip() for data_name in f]
