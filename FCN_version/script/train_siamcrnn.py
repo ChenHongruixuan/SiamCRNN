@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/content/SiamCRNN/FCN_version')
+sys.path.append('')
 import argparse
 import os
 import time
